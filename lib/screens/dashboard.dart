@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_fin/components/nav_icon.dart';
 import 'package:my_fin/components/selling_card.dart';
 import 'package:my_fin/utils/constants.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 
 class Dashboard extends StatefulWidget {
 
@@ -67,6 +68,9 @@ class _DashboardState extends State<Dashboard> {
     }
   }
 
+  /// Variable to hold the bool value of [Password] obscure text in the form field
+  bool _obscureAvailableCash = true;
+
   @override
   void initState() {
     greetingMessage();
@@ -122,7 +126,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                             const Spacer(),
                             const Icon(
-                              Icons.notifications,
+                              IconlyBold.notification,
                               size: 25,
                               color: Colors.white,
                             ),
@@ -170,8 +174,8 @@ class _DashboardState extends State<Dashboard> {
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                                children: const [
-                                                  Text(
+                                                children: [
+                                                  const Text(
                                                     'Available Cash',
                                                     style: TextStyle(
                                                       color: Color(0xFF4F5877),
@@ -179,11 +183,18 @@ class _DashboardState extends State<Dashboard> {
                                                       fontSize: 18,
                                                     ),
                                                   ),
-                                                  SizedBox(width: 9),
-                                                  Icon(
-                                                    Icons.add_circle_rounded,
-                                                    color: kBackgroundColor,
-                                                    size: 21,
+                                                  const SizedBox(width: 9),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        _obscureAvailableCash = !_obscureAvailableCash;
+                                                      });
+                                                    },
+                                                    child: Icon(
+                                                      _obscureAvailableCash == true ? IconlyBold.show : IconlyBold.hide,
+                                                      color: kBackgroundColor,
+                                                      size: 21,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -217,10 +228,10 @@ class _DashboardState extends State<Dashboard> {
                                           ),
                                           const SizedBox(height: 3),
                                           /// Cash
-                                          const Text(
-                                            '\$0.00',
+                                          Text(
+                                            _obscureAvailableCash == true ? '\$X.XX' : '\$0.00',
                                             overflow: TextOverflow.fade,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Color(0xFF001140),
                                               fontSize: 22,
                                               fontWeight: FontWeight.w600,

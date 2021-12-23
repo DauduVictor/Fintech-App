@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       title: 'Fintech App Demo',
       debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: "Circula",
+        ),
       initialRoute: Dashboard.id,
       routes: {
         Dashboard.id: (context) => const Dashboard(),
