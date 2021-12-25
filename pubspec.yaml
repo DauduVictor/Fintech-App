@@ -36,6 +36,9 @@ flutter:
     - assets/images/
 
   fonts:
-    - family: Circula
+    - family: CircularStd
       fonts:
-        - asset: assets/fonts/Circular Std Font.otf
+        - asset: assets/fonts/CircularStd-Black.otf
+        - asset: assets/fonts/CircularStd-Light.otf
+        - asset: assets/fonts/CircularStd-Medium.otf
+        - asset: assets/fonts/CircularStd-Bold.otf

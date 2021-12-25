@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_fin/components/current_tokens_dashboard.dart';
 import 'package:my_fin/components/nav_icon.dart';
 import 'package:my_fin/components/selling_card.dart';
 import 'package:my_fin/utils/constants.dart';
@@ -103,17 +104,15 @@ class _DashboardState extends State<Dashboard> {
                     children: [
                       /// Profile picture, greeting and notifications
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(12, 35, 12, 0),
+                        padding: const EdgeInsets.fromLTRB(12, 55, 12, 12),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(
-                              width: constraints.maxWidth * 0.11,
-                              height: constraints.maxHeight * 0.11,
-                              child: CircleAvatar(
-                                backgroundColor: Colors.white.withOpacity(0.5),
-                              ),
+                            CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: constraints.maxHeight * 0.028,
+                              foregroundImage: const AssetImage("assets/images/IMG_1.jpeg"),
                             ),
                             const SizedBox(width: 8.5),
                             Text(
@@ -121,7 +120,7 @@ class _DashboardState extends State<Dashboard> {
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 19,
-                                fontWeight: FontWeight.normal,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             const Spacer(),
@@ -200,7 +199,20 @@ class _DashboardState extends State<Dashboard> {
                                               ),
                                               /// Add to wallet button
                                               ElevatedButton(
-                                                onPressed: () {  },
+                                                onPressed: () {
+                                                  showModalBottomSheet(
+                                                    shape: const RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+                                                    ),
+                                                    barrierColor: const Color(0xFF001140).withOpacity(0.76),
+                                                    enableDrag: false,
+                                                    elevation: 1.5,
+                                                    context: context,
+                                                    builder: (context){
+                                                      return _bottomModalSheet(context, constraints);
+                                                    },
+                                                  );
+                                                },
                                                 style: ElevatedButton.styleFrom(
                                                   primary: const Color(0xFF4D84FF),
                                                   onSurface: Colors.white,
@@ -229,11 +241,11 @@ class _DashboardState extends State<Dashboard> {
                                           const SizedBox(height: 3),
                                           /// Cash
                                           Text(
-                                            _obscureAvailableCash == true ? '\$X.XX' : '\$0.00',
+                                            _obscureAvailableCash == true ? '\$X,XXX.XX' : '\$250,000.00',
                                             overflow: TextOverflow.fade,
                                             style: const TextStyle(
                                               color: Color(0xFF001140),
-                                              fontSize: 22,
+                                              fontSize: 25,
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
@@ -257,41 +269,20 @@ class _DashboardState extends State<Dashboard> {
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Container(
-                                                width: constraints.maxWidth * 0.27,
-                                                height: constraints.maxHeight * 0.09,
-                                                decoration: BoxDecoration(
-                                                  color: const Color(0xFFF7F9FD),
-                                                  borderRadius: BorderRadius.circular(5.3),
-                                                  border: Border.all(
-                                                    color: const Color(0xFFF0F4FD),
-                                                    width: 1.3,
-                                                  ),
-                                                ),
+                                              CurrentTokensContainer(
+                                                tokenAmount: '130',
+                                                imageUrl: 'assets/images/b8q5ly7ray9euqqde1uh 1.png',
+                                                constraints: constraints,
                                               ),
-                                              Container(
-                                                width: constraints.maxWidth * 0.27,
-                                                height: constraints.maxHeight * 0.09,
-                                                decoration: BoxDecoration(
-                                                  color: const Color(0xFFF7F9FD),
-                                                  borderRadius: BorderRadius.circular(5.3),
-                                                  border: Border.all(
-                                                    color: const Color(0xFFF0F4FD),
-                                                    width: 1.3,
-                                                  ),
-                                                ),
+                                              CurrentTokensContainer(
+                                                tokenAmount: '90',
+                                                imageUrl: 'assets/images/q0iotj8yxppzxznznijh_qyf7yx 1.png',
+                                                constraints: constraints,
                                               ),
-                                              Container(
-                                                width: constraints.maxWidth * 0.27,
-                                                height: constraints.maxHeight * 0.09,
-                                                decoration: BoxDecoration(
-                                                  color: const Color(0xFFF7F9FD),
-                                                  borderRadius: BorderRadius.circular(5.3),
-                                                  border: Border.all(
-                                                    color: const Color(0xFFF0F4FD),
-                                                    width: 1.3,
-                                                  ),
-                                                ),
+                                              CurrentTokensContainer(
+                                                tokenAmount: '190',
+                                                imageUrl: 'assets/images/jpi0jq5k1m2jaxm5l1pl_q9xdpe 1.png',
+                                                constraints: constraints,
                                               ),
                                             ],
                                           ),
@@ -356,15 +347,15 @@ class _DashboardState extends State<Dashboard> {
                             children: [
                               /// Verify your information
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(15, 13, 20, 15),
+                                padding: const EdgeInsets.fromLTRB(15, 13, 20, 8),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
                                       children: const [
                                         Icon(
-                                          Icons.warning,
-                                          size: 24,
+                                          Icons.warning_rounded,
+                                          size: 26,
                                           color: Color(0xFFF2994A),
                                         ),
                                         SizedBox(width: 8),
@@ -379,9 +370,9 @@ class _DashboardState extends State<Dashboard> {
                                       ],
                                     ),
                                     const Icon(
-                                      Icons.verified_user,
+                                      IconlyBold.shieldDone,
                                       color: Color(0xFF001140),
-                                      size: 26,
+                                      size: 35,
                                     ),
                                   ],
                                 ),
@@ -394,22 +385,17 @@ class _DashboardState extends State<Dashboard> {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(15, 13, 20, 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Wrap(
-                                      direction: Axis.vertical,
-                                      children: const [
-                                        Text(
-                                          'Please complete your verification process', //verification process in order ro start trading',
-                                          textAlign: TextAlign.start,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            color: Color(0xFF693221),
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 18,
-                                          ),
+                                    const Expanded(
+                                      child: Text(
+                                        'Please complete your verification process in order to start trading', //verification process in order ro start trading',
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          color: Color(0xFF693221),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18,
                                         ),
-                                      ],
+                                      ),
                                     ),
                                     GestureDetector(
                                       onTap: () {},
@@ -425,7 +411,6 @@ class _DashboardState extends State<Dashboard> {
                                   ],
                                 ),
                               ),
-
                             ],
                           ),
                         ),
@@ -489,7 +474,7 @@ class _DashboardState extends State<Dashboard> {
                                 children: [
                                   ReusableSellingCard(
                                     isFall: false,
-                                    imageUrl: '',
+                                    imageUrl: 'assets/images/b8q5ly7ray9euqqde1uh 1.png',
                                     coinName: 'BREZ',
                                     percentagePrice: '+1.63%',
                                     constraints: constraints,
@@ -497,7 +482,7 @@ class _DashboardState extends State<Dashboard> {
                                   const SizedBox(width: 12.5),
                                   ReusableSellingCard(
                                     isFall: true,
-                                    imageUrl: '',
+                                    imageUrl: 'assets/images/q0iotj8yxppzxznznijh_qyf7yx 1.png',
                                     coinName: 'FLCN',
                                     percentagePrice: '-0.40%',
                                     constraints: constraints,
@@ -505,9 +490,9 @@ class _DashboardState extends State<Dashboard> {
                                   const SizedBox(width: 12.5),
                                   ReusableSellingCard(
                                     isFall: false,
-                                    imageUrl: '',
+                                    imageUrl: 'assets/images/jpi0jq5k1m2jaxm5l1pl_q9xdpe 1.png',
                                     coinName: 'ONFE',
-                                    percentagePrice: '-0.47%',
+                                    percentagePrice: '0.47%',
                                     constraints: constraints,
                                   ),
                                 ],
@@ -538,7 +523,7 @@ class _DashboardState extends State<Dashboard> {
         bottomNavigationBar: LayoutBuilder(
           builder: (context, constraints) {
             return Container(
-                height: 80.5,
+                height: 60.5,
                 width: constraints.maxWidth,
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -560,8 +545,22 @@ class _DashboardState extends State<Dashboard> {
                         name: 'Overview',
                         iconName: Icons.dashboard,
                         iconColor: Color(0xFF4D84FF),
-                        textColor: Color(0xFF135BFD),
-                        iconSize: 33
+                        textColor: Color(0xFF135BFD)
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          // touchedIcon = myColor.settings;
+                          // touchedIconSize =  myColor.settings;
+                          //Navigator.push(context, PageTransition(type:PageTransitionType.rightToLeftWithFade, child:  AllSettings()));
+                        });
+                      },
+                      child: const ReusableBottomIcon(
+                          iconName: Icons.trending_up,
+                          name: 'Trade',
+                          iconColor: Color(0xFF4F5877),
+                          textColor: Color(0xFF4F5877)
                       ),
                     ),
                     GestureDetector(
@@ -576,8 +575,22 @@ class _DashboardState extends State<Dashboard> {
                           iconName: Icons.sync_alt,
                           name: 'Transactions',
                           iconColor: Color(0xFF4F5877),
-                          textColor: Color(0xFF4F5877),
-                          iconSize: 33
+                          textColor: Color(0xFF4F5877)
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          // touchedIcon = myColor.settings;
+                          // touchedIconSize =  myColor.settings;
+                          //Navigator.push(context, PageTransition(type:PageTransitionType.rightToLeftWithFade, child:  AllSettings()));
+                        });
+                      },
+                      child: const ReusableBottomIcon(
+                          iconName: IconlyBold.wallet,
+                          name: 'Wallet',
+                          iconColor: Color(0xFF4F5877),
+                          textColor: Color(0xFF4F5877)
                       ),
                     ),
                     GestureDetector(
@@ -592,8 +605,7 @@ class _DashboardState extends State<Dashboard> {
                           iconName: Icons.menu,
                           name: 'More',
                           iconColor: Color(0xFF4F5877),
-                          textColor: Color(0xFF4F5877),
-                          iconSize: 33
+                          textColor: Color(0xFF4F5877)
                       ),
                     ),
                   ],
@@ -606,3 +618,77 @@ class _DashboardState extends State<Dashboard> {
   }
 }
 
+Widget _bottomModalSheet(BuildContext context, BoxConstraints constraints) {
+  return Container(
+    height: constraints.maxHeight / 2.2,
+    decoration: const BoxDecoration(
+      borderRadius:  BorderRadius.vertical(top: Radius.circular(14.0)),
+      color: Colors.white,
+    ),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            width: constraints.maxWidth * 0.18,
+            height: constraints.maxHeight * 0.006,
+            decoration: BoxDecoration(
+              color: const Color(0xFFD0D5E0),
+              borderRadius: BorderRadius.circular(24.0),
+
+            ),
+          ),
+          CircleAvatar(
+            radius: constraints.maxHeight * 0.045,
+            backgroundColor: const Color(0xFFFDF2E7),
+            child: const Icon(
+              Icons.file_download_outlined,
+              size: 30,
+              color: Color(0xFFF38920),
+            ),
+          ),
+          const Text(
+            'New versions are available!',
+            style: TextStyle(
+              color: Color(0xFF001140),
+              fontWeight: FontWeight.w600,
+              fontSize: 23,
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Text(
+              'There’s a new version of GetEquity available. Update your app on the App Store to get the best experience',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Color(0xFF001140),
+                fontWeight: FontWeight.normal,
+                fontSize: 18.5,
+              ),
+            ),
+          ),
+          /// update button
+          SizedBox(
+            width: constraints.maxWidth,
+            child: ElevatedButton(
+              onPressed: () { },
+              style: ElevatedButton.styleFrom(
+                primary: const Color(0xFF4D84FF),
+                onSurface: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 18),
+              ),
+              child: const Text(
+                'Update DemoApp',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}

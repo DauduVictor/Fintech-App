@@ -12,10 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
-      title: 'Fintech App Demo',
+      title: 'Fintech App',
       debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          fontFamily: "Circula",
+          fontFamily: "CircularStd",
         ),
       initialRoute: Dashboard.id,
       routes: {

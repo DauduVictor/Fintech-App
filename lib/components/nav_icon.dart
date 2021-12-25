@@ -6,15 +6,13 @@ class ReusableBottomIcon extends StatelessWidget {
   final IconData iconName;
   final Color iconColor;
   final Color textColor;
-  final double iconSize;
 
   const ReusableBottomIcon({
     Key? key,
     required this.name,
     required this.iconName,
     required this.iconColor,
-    required this.textColor,
-    required this.iconSize
+    required this.textColor
   }) : super(key: key);
 
   @override
@@ -26,7 +24,7 @@ class ReusableBottomIcon extends StatelessWidget {
         children: [
           Icon(
             iconName,
-            size: iconSize,
+            size: 29,
             color: iconColor,
           ),
           Text(

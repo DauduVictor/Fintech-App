@@ -29,12 +29,12 @@ class ReusableSellingCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 19.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             /// coin avatar
             CircleAvatar(
-              backgroundColor: Colors.black.withOpacity(0.5),
+              backgroundColor: Colors.white,
               radius: constraints.maxHeight * 0.02,
+              child: Image.asset(imageUrl),
             ),
             const SizedBox(height: 8.0),
             /// coin name
