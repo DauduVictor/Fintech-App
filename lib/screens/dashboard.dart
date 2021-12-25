@@ -213,6 +213,9 @@ class _DashboardState extends State<Dashboard> {
                                                     },
                                                   );
                                                 },
+                                                onLongPress: () {
+                                                  _showNotificationModalSheet(constraints);
+                                                },
                                                 style: ElevatedButton.styleFrom(
                                                   primary: const Color(0xFF4D84FF),
                                                   onSurface: Colors.white,
@@ -385,6 +388,7 @@ class _DashboardState extends State<Dashboard> {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(15, 13, 20, 15),
                                 child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Expanded(
                                       child: Text(
@@ -392,8 +396,8 @@ class _DashboardState extends State<Dashboard> {
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                           color: Color(0xFF693221),
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 19,
                                         ),
                                       ),
                                     ),
@@ -616,8 +620,120 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
+
+  ///widget to show the dialog for notifications
+  Future<void> _showNotificationModalSheet (BoxConstraints constraints) {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierColor: const Color(0xFF001140).withOpacity(0.76),
+      builder: (context) => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: const EdgeInsets.all(20),
+            padding: const EdgeInsets.fromLTRB(16, 30, 16, 21),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: const Color(0xFFFFFFFF),
+            ),
+            child: Material(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: constraints.maxWidth * 0.2,
+                    height: constraints.maxWidth * 0.23,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/Layer 29.png'),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Turn On notifications',
+                    style: TextStyle(
+                      color: Color(0xFF001140),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 23,
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(15, 8, 15, 20),
+                    child: Text(
+                      'You will get updates when important events happen',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFF001140),
+                        fontWeight: FontWeight.normal,
+                        fontSize: 18.5,
+                      ),
+                    ),
+                  ),
+                  /// update button
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.transparent,
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        ),
+                        child: const Text(
+                          'Not Now',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Color(0xFF4F5877),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () { },
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color(0xFF4D84FF),
+                          onSurface: Colors.white,
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        ),
+                        child: const Text(
+                          'Turn On',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 40),
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: CircleAvatar(
+              radius: constraints.maxHeight * 0.02,
+              backgroundColor: Colors.white,
+              child: const Icon(
+                Icons.cancel_outlined,
+                color: Colors.white,
+                size: 31,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
+/// Bottom modal Widget
 Widget _bottomModalSheet(BuildContext context, BoxConstraints constraints) {
   return Container(
     height: constraints.maxHeight / 2.2,
@@ -644,7 +760,7 @@ Widget _bottomModalSheet(BuildContext context, BoxConstraints constraints) {
             backgroundColor: const Color(0xFFFDF2E7),
             child: const Icon(
               Icons.file_download_outlined,
-              size: 30,
+              size: 35,
               color: Color(0xFFF38920),
             ),
           ),
