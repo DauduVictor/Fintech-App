@@ -357,7 +357,7 @@ class _DashboardState extends State<Dashboard> {
                                     Row(
                                       children: const [
                                         Icon(
-                                          Icons.warning_rounded,
+                                          Icons.error,
                                           size: 26,
                                           color: Color(0xFFF2994A),
                                         ),
@@ -687,7 +687,7 @@ class _DashboardState extends State<Dashboard> {
                         child: const Text(
                           'Not Now',
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 19,
                             color: Color(0xFF4F5877),
                             fontWeight: FontWeight.w500,
                           ),
@@ -703,7 +703,7 @@ class _DashboardState extends State<Dashboard> {
                         child: const Text(
                           'Turn On',
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 19,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -714,15 +714,15 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 30),
           GestureDetector(
             onTap: () => Navigator.pop(context),
             child: CircleAvatar(
-              radius: constraints.maxHeight * 0.02,
+              radius: constraints.maxHeight * 0.023,
               backgroundColor: Colors.white,
               child: const Icon(
-                Icons.cancel_outlined,
-                color: Colors.white,
+                Icons.close,
+                color: Colors.black,
                 size: 31,
               ),
             ),
@@ -733,7 +733,7 @@ class _DashboardState extends State<Dashboard> {
   }
 }
 
-/// Bottom modal Widget
+/// Bottom modal Widget [Update App]
 Widget _bottomModalSheet(BuildContext context, BoxConstraints constraints) {
   return Container(
     height: constraints.maxHeight / 2.2,

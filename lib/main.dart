@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_fin/screens/dashboard.dart';
+import 'package:my_fin/screens/initial_screens/splash_screen.dart';
+import 'package:my_fin/screens/initial_screens/welcome_page_one.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,9 +19,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: "CircularStd",
         ),
-      initialRoute: Dashboard.id,
+      initialRoute: SplashScreen.id,
       routes: {
+        SplashScreen.id: (context) => const SplashScreen(),
         Dashboard.id: (context) => const Dashboard(),
+        WelcomePageOne.id: (context) => const WelcomePageOne(),
       }
     );
   }
