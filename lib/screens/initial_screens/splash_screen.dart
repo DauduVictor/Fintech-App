@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   /// Function to navigate to the next screen after a timer
   void _navigate() {
-    Timer(const Duration(seconds: 3), ()=> Navigator.pushReplacementNamed(context, WelcomePageOne.id));
+    Timer(const Duration(seconds: 3), ()=> Navigator.pushReplacementNamed(context, WelcomeScreen.id));
   }
 
   @override

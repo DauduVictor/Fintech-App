@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_fin/screens/dashboard.dart';
+import 'package:my_fin/screens/initial_screens/details.dart';
+import 'package:my_fin/screens/initial_screens/register.dart';
 import 'package:my_fin/screens/initial_screens/splash_screen.dart';
 import 'package:my_fin/screens/initial_screens/welcome_page_one.dart';
 
@@ -23,7 +25,9 @@ class MyApp extends StatelessWidget {
       routes: {
         SplashScreen.id: (context) => const SplashScreen(),
         Dashboard.id: (context) => const Dashboard(),
-        WelcomePageOne.id: (context) => const WelcomePageOne(),
+        WelcomeScreen.id: (context) => const WelcomeScreen(),
+        Register.id: (context) => const Register(),
+        Details.id: (context) => const Details(),
       }
     );
   }

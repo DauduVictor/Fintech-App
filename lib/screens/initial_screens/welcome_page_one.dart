@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:my_fin/screens/initial_screens/register.dart';
 import 'package:my_fin/utils/constants.dart';
 
-class WelcomePageOne extends StatefulWidget {
+class WelcomeScreen extends StatefulWidget {
 
   static const String id = "welcomePageOne";
-  const WelcomePageOne({Key? key}) : super(key: key);
+  const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<WelcomePageOne> createState() => _WelcomePageOneState();
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-class _WelcomePageOneState extends State<WelcomePageOne> {
+class _WelcomeScreenState extends State<WelcomeScreen> {
 
   /// A variable to hold the total number of pages that will be slided to and from
   final int _numPages = 4;
@@ -99,7 +100,7 @@ class _WelcomePageOneState extends State<WelcomePageOne> {
                               child: const Text(
                                 'Skip',
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 17,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -119,20 +120,128 @@ class _WelcomePageOneState extends State<WelcomePageOne> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
+                                  fontSize: 21,
                                   fontWeight: FontWeight.w500,
-                                  height: 1.3,
+                                  height: 1.5,
                                 ),
                               ),
                               const SizedBox(height: 15),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                                child: Text(
+                                  'What this means is that you can buy stocks in your favorite companies easily',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    height: 1.5,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          /// Page indicator, next button
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: _buildPageIndicator(),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  _pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  primary: const Color(0xFF27AE60),
+                                  onSurface: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(26),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 13),
+                                ),
+                                child: const Text(
+                                  'Next',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/tabbacimg.png"),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 60, 18, 50),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          /// Skip button
+                          Align(
+                            alignment:  Alignment.topRight,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                _pageController.jumpToPage(4);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: const Color(0xFF092E95),
+                                onSurface: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(26),
+                                ),
+                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                              ),
+                              child: const Text(
+                                'Skip',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                          /// image, heading, sub heading
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                  width: constraints.maxWidth * 0.5,
+                                  height: constraints.maxHeight * 0.18,
+                                  color: Colors.white
+                              ),
                               const Text(
-                                'What this means is that you can buy stocks in your favorite companies easily',
+                                'You’re taking a hunch to trust us, so we promise to protect your account',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.3,
+                                  fontSize: 21,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.5,
+                                ),
+                              ),
+                              const SizedBox(height: 15),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                                child: Text(
+                                  'Your capital is as secured as a bank vault, even better, you only have access to it',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    height: 1.4,
+                                  ),
                                 ),
                               ),
                             ],
@@ -183,6 +292,7 @@ class _WelcomePageOneState extends State<WelcomePageOne> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          /// Skip button
                           Align(
                             alignment:  Alignment.topRight,
                             child: ElevatedButton(
@@ -206,6 +316,7 @@ class _WelcomePageOneState extends State<WelcomePageOne> {
                               ),
                             ),
                           ),
+                          /// image, heading, sub heading
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -215,127 +326,32 @@ class _WelcomePageOneState extends State<WelcomePageOne> {
                                   color: Colors.white
                               ),
                               const Text(
-                                'We level the field by giving you access to tokenized commodity',
+                                'Liquidate instantly or keep building your portfolio is totally up to you',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
+                                  fontSize: 21,
                                   fontWeight: FontWeight.w500,
-                                  height: 1.3,
+                                  height: 1.5,
                                 ),
                               ),
                               const SizedBox(height: 15),
-                              const Text(
-                                'What this means is that you can buy stocks in your favorite companies easily',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.3,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: _buildPageIndicator(),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  _pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: const Color(0xFF27AE60),
-                                  onSurface: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(26),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
-                                ),
-                                child: const Text(
-                                  'Next',
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                                child: Text(
+                                  'A secure and easy medium through which you can trade your tokens',
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
+                                    color: Colors.white,
                                     fontSize: 18,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w400,
+                                    height: 1.5,
                                   ),
                                 ),
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/tabbacimg.png"),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 60, 18, 50),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Align(
-                            alignment:  Alignment.topRight,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                _pageController.jumpToPage(4);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: const Color(0xFF092E95),
-                                onSurface: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(26),
-                                ),
-                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                              ),
-                              child: const Text(
-                                'Skip',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                  width: constraints.maxWidth * 0.5,
-                                  height: constraints.maxHeight * 0.18,
-                                  color: Colors.white
-                              ),
-                              const Text(
-                                'We level the field by giving you access to tokenized commodity',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.3,
-                                ),
-                              ),
-                              const SizedBox(height: 15),
-                              const Text(
-                                'What this means is that you can buy stocks in your favorite companies easily',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.3,
-                                ),
-                              ),
-                            ],
-                          ),
+                          /// Page indicator, next button
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -392,24 +408,27 @@ class _WelcomePageOneState extends State<WelcomePageOne> {
                                   color: Colors.white
                               ),
                               const Text(
-                                'We level the field by giving you access to tokenized commodity',
+                                'Liquidate instantly or keep building your portfolio is totally up to you',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
+                                  fontSize: 21,
                                   fontWeight: FontWeight.w500,
-                                  height: 1.3,
+                                  height: 1.5,
                                 ),
                               ),
                               const SizedBox(height: 15),
-                              const Text(
-                                'What this means is that you can buy stocks in your favorite companies easily',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.3,
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                                child: Text(
+                                  'A secure and easy medium through which you can trade your tokens',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    height: 1.5,
+                                  ),
                                 ),
                               ),
                             ],
@@ -533,7 +552,9 @@ class _WelcomePageOneState extends State<WelcomePageOne> {
             SizedBox(
               width: constraints.maxWidth,
               child: ElevatedButton(
-                onPressed: () { },
+                onPressed: () {
+                  Navigator.pushNamed(context, Register.id);
+                },
                 style: ElevatedButton.styleFrom(
                   primary: const Color(0xFF4D84FF),
                   onSurface: Colors.white,
