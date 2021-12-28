@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_fin/screens/initial_screens/register.dart';
+import 'package:my_fin/components/next_button.dart';
+import 'package:my_fin/components/skip_button.dart';
+import 'package:my_fin/screens/initial_screens/create_account.dart';
 import 'package:my_fin/utils/constants.dart';
+
+import 'login.dart';
 
 class WelcomeScreen extends StatefulWidget {
 
@@ -83,38 +87,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           /// Skip button
-                          Align(
-                            alignment:  Alignment.topRight,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                _pageController.jumpToPage(4);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: const Color(0xFF092E95),
-                                onSurface: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(26),
-                                ),
-                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                              ),
-                              child: const Text(
-                                'Skip',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
+                          SkipButton(pageController: _pageController),
                           /// image, heading, sub heading
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: constraints.maxWidth * 0.5,
-                                height: constraints.maxHeight * 0.18,
-                                color: Colors.white
+                                width: constraints.maxWidth * 0.7,
+                                height: constraints.maxHeight * 0.22,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage("assets/images/inittabimg1.png"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
                               ),
+                              const SizedBox(height: 16),
                               const Text(
                                 'We level the field by giving you access to tokenized commodity',
                                 textAlign: TextAlign.center,
@@ -141,6 +129,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               ),
                             ],
                           ),
+                          const SizedBox(height: 16),
                           /// Page indicator, next button
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -148,26 +137,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               Column(
                                 children: _buildPageIndicator(),
                               ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  _pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: const Color(0xFF27AE60),
-                                  onSurface: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(26),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 13),
-                                ),
-                                child: const Text(
-                                  'Next',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
+                              NextButton(pageController: _pageController),
                             ],
                           ),
                         ],
@@ -188,38 +158,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           /// Skip button
-                          Align(
-                            alignment:  Alignment.topRight,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                _pageController.jumpToPage(4);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: const Color(0xFF092E95),
-                                onSurface: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(26),
-                                ),
-                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                              ),
-                              child: const Text(
-                                'Skip',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
+                          SkipButton(pageController: _pageController),
                           /// image, heading, sub heading
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                  width: constraints.maxWidth * 0.5,
-                                  height: constraints.maxHeight * 0.18,
-                                  color: Colors.white
+                                width: constraints.maxWidth * 0.7,
+                                height: constraints.maxHeight * 0.22,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage("assets/images/inittabimg2.png"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
                               ),
+                              const SizedBox(height: 16),
                               const Text(
                                 'You’re taking a hunch to trust us, so we promise to protect your account',
                                 textAlign: TextAlign.center,
@@ -246,6 +200,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               ),
                             ],
                           ),
+                          const SizedBox(height: 16),
                           /// Page indicator, next button
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -253,26 +208,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               Column(
                                 children: _buildPageIndicator(),
                               ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  _pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: const Color(0xFF27AE60),
-                                  onSurface: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(26),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
-                                ),
-                                child: const Text(
-                                  'Next',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
+                              NextButton(pageController: _pageController),
                             ],
                           ),
                         ],
@@ -293,38 +229,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           /// Skip button
-                          Align(
-                            alignment:  Alignment.topRight,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                _pageController.jumpToPage(4);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: const Color(0xFF092E95),
-                                onSurface: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(26),
-                                ),
-                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                              ),
-                              child: const Text(
-                                'Skip',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
+                          SkipButton(pageController: _pageController),
                           /// image, heading, sub heading
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                  width: constraints.maxWidth * 0.5,
-                                  height: constraints.maxHeight * 0.18,
-                                  color: Colors.white
+                                width: constraints.maxWidth * 0.7,
+                                height: constraints.maxHeight * 0.22,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage("assets/images/inittabimg3.png"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
                               ),
+                              const SizedBox(height: 16),
                               const Text(
                                 'Liquidate instantly or keep building your portfolio is totally up to you',
                                 textAlign: TextAlign.center,
@@ -358,26 +278,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               Column(
                                 children: _buildPageIndicator(),
                               ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  _pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: const Color(0xFF27AE60),
-                                  onSurface: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(26),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
-                                ),
-                                child: const Text(
-                                  'Next',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
+                              NextButton(pageController: _pageController),
                             ],
                           ),
                         ],
@@ -403,10 +304,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                  width: constraints.maxWidth * 0.5,
-                                  height: constraints.maxHeight * 0.18,
-                                  color: Colors.white
+                                width: constraints.maxWidth * 0.7,
+                                height: constraints.maxHeight * 0.22,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage("assets/images/inittabimg4.png"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
                               ),
+                              const SizedBox(height: 16),
                               const Text(
                                 'Liquidate instantly or keep building your portfolio is totally up to you',
                                 textAlign: TextAlign.center,
@@ -476,7 +383,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 width: constraints.maxWidth,
                                 child: ElevatedButton(
                                   onPressed: () {
-
+                                    Navigator.pushNamed(context, Login.id);
                                   },
                                   style: ElevatedButton.styleFrom(
                                     primary: Colors.white,
@@ -553,6 +460,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               width: constraints.maxWidth,
               child: ElevatedButton(
                 onPressed: () {
+                  Navigator.pop(context);
                   Navigator.pushNamed(context, Register.id);
                 },
                 style: ElevatedButton.styleFrom(
