@@ -9,7 +9,13 @@ import 'create_aount_details.dart';
 class Register extends StatefulWidget {
 
   static const String id = 'register';
-  const Register({Key? key}) : super(key: key);
+
+  final String? countryName;
+
+  const Register({
+    Key? key,
+    this.countryName
+  }) : super(key: key);
 
   @override
   _RegisterState createState() => _RegisterState();
@@ -165,7 +171,11 @@ class _RegisterState extends State<Register> {
                                     PageRouteBuilder(
                                       transitionDuration: const Duration(milliseconds: 300),
                                       pageBuilder: (context, animation, secondaryAnimation) {
-                                        return const Details();
+                                        return Details(
+                                          countryName: widget.countryName,
+                                          emailAddress: _eMailController.text,
+                                          password: _passwordController.text,
+                                        );
                                       },
                                       transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                         return FadeTransition(
@@ -212,9 +222,8 @@ class _RegisterState extends State<Register> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ///Email
-          Container(
+          SizedBox(
             width: double.infinity,
-            decoration: kFormContainerDecoration,
             child: TextFormField(
               style: kFormTextStyle,
               decoration: kFormInputDecoration.copyWith(
@@ -241,9 +250,8 @@ class _RegisterState extends State<Register> {
           ///Password
           StatefulBuilder(
               builder: (context, _setState) {
-                return Container(
+                return SizedBox(
                   width: double.infinity,
-                  decoration: kFormContainerDecoration,
                   child: TextFormField(
                     style: kFormTextStyle,
                     decoration: kFormInputDecoration.copyWith(

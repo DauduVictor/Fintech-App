@@ -6,6 +6,7 @@ import 'package:my_fin/components/circle_indicator.dart';
 import 'package:my_fin/utils/constants.dart';
 import 'package:my_fin/utils/size_config.dart';
 import '../dashboard.dart';
+import 'account_confirmation.dart';
 
 class Login extends StatefulWidget {
 
@@ -116,7 +117,7 @@ class _LoginState extends State<Login> {
                                 onPressed: () {
                                   FocusScopeNode currentFocus = FocusScope.of(context);
                                   if(!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
-                                  if(_showSpinner != false){
+                                  if(_showSpinner != true){
                                     if(_formKey.currentState!.validate()) {
                                       _signIn();
                                     }
@@ -134,7 +135,10 @@ class _LoginState extends State<Login> {
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500,
                                   ),
-                                ) : const CircleProgressIndicator(),
+                                ) : const SizedBox(
+                                  height: 35.0,
+                                  child: CircleProgressIndicator(),
+                                ),
                               ),
                             ),
                             const SizedBox(height: 21),
@@ -181,9 +185,8 @@ class _LoginState extends State<Login> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ///Email
-          Container(
+          SizedBox(
             width: double.infinity,
-            decoration: kFormContainerDecoration,
             child: TextFormField(
               style: kFormTextStyle,
               decoration: kFormInputDecoration.copyWith(
@@ -210,9 +213,8 @@ class _LoginState extends State<Login> {
           ///Password
           StatefulBuilder(
               builder: (context, _setState) {
-                return Container(
+                return SizedBox(
                   width: double.infinity,
-                  decoration: kFormContainerDecoration,
                   child: TextFormField(
                     style: kFormTextStyle,
                     decoration: kFormInputDecoration.copyWith(
@@ -263,7 +265,7 @@ class _LoginState extends State<Login> {
           transitionDuration:
           const Duration(milliseconds: 300),
           pageBuilder: (context, animation, secondaryAnimation) {
-            return const Dashboard();
+            return const AccountConfirmation();
           },
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(

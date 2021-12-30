@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_fin/components/next_button.dart';
 import 'package:my_fin/components/skip_button.dart';
 import 'package:my_fin/screens/initial_screens/create_account.dart';
@@ -350,9 +351,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   onPressed: () {
                                     showModalBottomSheet(
                                       shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+                                        borderRadius:  BorderRadius.vertical(top: Radius.circular(30.0)),
                                       ),
                                       barrierColor: const Color(0xFF27282B).withOpacity(0.76),
+                                      backgroundColor: Colors.transparent,
                                       enableDrag: false,
                                       elevation: 1.5,
                                       context: context,
@@ -419,14 +421,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   /// Bottom modal Widget [Update App]
   Widget _bottomModalSheet(BuildContext context, BoxConstraints constraints) {
+
+    /// key and controller for [Create Account]
+    final _formKey = GlobalKey<FormState>();
+    TextEditingController _countryController = TextEditingController();
+
     return Container(
-      height: constraints.maxHeight / 2.2,
+      height: constraints.maxHeight / 2.5,
       decoration: const BoxDecoration(
-        borderRadius:  BorderRadius.vertical(top: Radius.circular(14.0)),
+        borderRadius:  BorderRadius.vertical(top: Radius.circular(30.0)),
         color: Color(0xFF27282B),
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 20, 12, 40),
+        padding: const EdgeInsets.fromLTRB(12, 20, 12, 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -438,30 +445,73 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 borderRadius: BorderRadius.circular(24.0),
               ),
             ),
-            const Text(
-              'Let\'s Set up Your Account',
-              style: TextStyle(
-                color: Color(0xFFFFFFFF),
-                fontWeight: FontWeight.w600,
-                fontSize: 23,
+            SizedBox(height: constraints.maxHeight * 0.016),
+            Column(
+              children: const [
+                Text(
+                  'Let\'s Set up Your Account',
+                  style: TextStyle(
+                    color: Color(0xFFFFFFFF),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 23,
+                  ),
+                ),
+                SizedBox(height: 7),
+                Text(
+                  'What country do you live in?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF8791A7),
+                    fontWeight: FontWeight.normal,
+                    fontSize: 18.5,
+                  ),
+                ),
+              ],
+            ),
+            /// country picker
+            Form(
+              key: _formKey,
+              child: SizedBox(
+                width: double.infinity,
+                child: TextFormField(
+                  style: kFormTextStyle,
+                  decoration: kFormInputDecoration.copyWith(
+                    hintText: 'Pick your country',
+                    suffixIcon: const Icon(
+                      Icons.arrow_drop_down_sharp,
+                      color: Color(0xFF8791A7),
+                      size: 18,
+                    ),
+                  ),
+                  controller: _countryController,
+                  textInputAction: TextInputAction.done,
+                  keyboardType: TextInputType.text,
+                  readOnly: true,
+                  onTap: () {
+                    setState(() => _countryController.text = 'Nigeria');
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'This field is required';
+                    }
+                    return null;
+                  },
+                ),
               ),
             ),
-            const Text(
-              'What country do you live in?',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color(0xFF8791A7),
-                fontWeight: FontWeight.normal,
-                fontSize: 18.5,
-              ),
-            ),
-            /// update button
+            /// continue button
             SizedBox(
               width: constraints.maxWidth,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, Register.id);
+                  if(!mounted) return;
+                  if(_formKey.currentState!.validate()){
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Register(countryName: _countryController.text)),
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   primary: const Color(0xFF4D84FF),

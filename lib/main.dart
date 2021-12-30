@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_fin/screens/dashboard.dart';
+import 'package:my_fin/screens/initial_screens/account_confirmation.dart';
 import 'package:my_fin/screens/initial_screens/create_aount_details.dart';
 import 'package:my_fin/screens/initial_screens/create_account.dart';
 import 'package:my_fin/screens/initial_screens/login.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         Register.id: (context) => const Register(),
         Details.id: (context) => const Details(),
         Login.id: (context) => const Login(),
+        AccountConfirmation.id: (context) => const AccountConfirmation(),
       }
     );
   }

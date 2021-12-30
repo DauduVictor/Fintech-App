@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:my_fin/components/circle_indicator.dart';
 import 'package:my_fin/utils/constants.dart';
 import 'package:my_fin/utils/size_config.dart';
 
@@ -9,7 +12,17 @@ import '../dashboard.dart';
 class Details extends StatefulWidget {
 
   static const String id = 'details';
-  const Details({Key? key}) : super(key: key);
+
+  final String? countryName;
+  final String? emailAddress;
+  final String? password;
+
+  const Details({
+    Key? key,
+    this.countryName,
+    this.emailAddress,
+    this.password,
+  }) : super(key: key);
 
   @override
   _DetailsState createState() => _DetailsState();
@@ -24,6 +37,9 @@ class _DetailsState extends State<Details> {
   TextEditingController _phoneNoController = TextEditingController();
   TextEditingController _dobController = TextEditingController();
 
+  /// Variable to hold the bool value of the [CircleIndicator()]
+  bool _showSpinner = false;
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -37,90 +53,99 @@ class _DetailsState extends State<Details> {
             FocusScopeNode currentFocus = FocusScope.of(context);
             if(!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
           },
-          child: SingleChildScrollView(
-            child: SizedBox(
-              height: SizeConfig.screenHeight,
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  return SingleChildScrollView(
-                    child: SizedBox(
-                      height: constraints.maxHeight,
-                      child: Container(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 43),
-                            GestureDetector(
-                              onTap: () => Navigator.pop(context),
-                              child: Container(
-                                padding: const EdgeInsets.all(9.0),
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color(0xFF27282B),
-                                ),
-                                child: const Icon(
-                                  Icons.arrow_back_sharp,
-                                  size: 15,
-                                  color: Color(0xFF8791A7),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 32),
-                            const Text(
-                              'Tell us more about you',
-                              style: TextStyle(
-                                color: Color(0xFFFFFFFF),
-                                fontWeight: FontWeight.w600,
-                                fontSize: 23,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Padding(
-                              padding: EdgeInsets.only(right: 100.0),
-                              child: Text(
-                                'Please use your name as it appears in your ID.',
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  color: Color(0xFF8791A7),
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 17.5,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 27),
-                            _buildForm(),
-                            const Spacer(),
-                            SizedBox(
-                              width: constraints.maxWidth,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  FocusScopeNode currentFocus = FocusScope.of(context);
-                                  if(!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
-                                  if(_formKey.currentState!.validate()){
-                                    Navigator.pushNamed(context, Dashboard.id);
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: const Color(0xFF4D84FF),
-                                  onSurface: Colors.white,
-                                  padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 18),
-                                ),
-                                child: const Text(
-                                  'Continue',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
+          child: AbsorbPointer(
+            absorbing: _showSpinner,
+            child: SingleChildScrollView(
+              child: SizedBox(
+                height: SizeConfig.screenHeight,
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return SingleChildScrollView(
+                      child: SizedBox(
+                        height: constraints.maxHeight,
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 43),
+                              GestureDetector(
+                                onTap: () => Navigator.pop(context),
+                                child: Container(
+                                  padding: const EdgeInsets.all(9.0),
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color(0xFF27282B),
+                                  ),
+                                  child: const Icon(
+                                    Icons.arrow_back_sharp,
+                                    size: 15,
+                                    color: Color(0xFF8791A7),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                              const SizedBox(height: 32),
+                              const Text(
+                                'Tell us more about you',
+                                style: TextStyle(
+                                  color: Color(0xFFFFFFFF),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 23,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              const Padding(
+                                padding: EdgeInsets.only(right: 100.0),
+                                child: Text(
+                                  'Please use your name as it appears in your ID.',
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    color: Color(0xFF8791A7),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17.5,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 27),
+                              _buildForm(),
+                              const Spacer(),
+                              SizedBox(
+                                width: constraints.maxWidth,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    FocusScopeNode currentFocus = FocusScope.of(context);
+                                    if(!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
+                                    if(_showSpinner != true){
+                                      if (_formKey.currentState!.validate()) {
+                                        _signUp();
+                                      }
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: const Color(0xFF4D84FF),
+                                    onSurface: Colors.white,
+                                    padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 18),
+                                  ),
+                                  child: _showSpinner == false ?
+                                    const Text(
+                                    'Continue',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ) : const SizedBox(
+                                    height: 35.0,
+                                    child: CircleProgressIndicator(),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
           ),
@@ -137,9 +162,8 @@ class _DetailsState extends State<Details> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ///First Name
-          Container(
+          SizedBox(
             width: double.infinity,
-            decoration: kFormContainerDecoration,
             child: TextFormField(
               style: kFormTextStyle,
               decoration: kFormInputDecoration.copyWith(
@@ -161,9 +185,8 @@ class _DetailsState extends State<Details> {
           ),
           const SizedBox(height: 15),
           /// Last Name
-          Container(
+          SizedBox(
             width: double.infinity,
-            decoration: kFormContainerDecoration,
             child: TextFormField(
               style: kFormTextStyle,
               decoration: kFormInputDecoration.copyWith(
@@ -185,9 +208,8 @@ class _DetailsState extends State<Details> {
           ),
           const SizedBox(height: 15),
           /// Phone number
-          Container(
+          SizedBox(
             width: double.infinity,
-            decoration: kFormContainerDecoration,
             child: TextFormField(
               style: kFormTextStyle,
               decoration: kFormInputDecoration.copyWith(
@@ -209,9 +231,8 @@ class _DetailsState extends State<Details> {
           ),
           const SizedBox(height: 15),
           /// Date of birth
-          Container(
+          SizedBox(
             width: double.infinity,
-            decoration: kFormContainerDecoration,
             child: TextFormField(
               style: kFormTextStyle,
               decoration: kFormInputDecoration.copyWith(
@@ -264,5 +285,22 @@ class _DetailsState extends State<Details> {
         ],
       ),
     );
+  }
+
+  /// Function to call api [Sign Up]
+  void _signUp() {
+    if(!mounted) return;
+    setState(() => _showSpinner = true);
+    print(widget.countryName);
+    print(widget.emailAddress);
+    print(widget.password);
+    print(_firstNameController.text);
+    print(_lastNameController.text);
+    print(_phoneNoController.text);
+    print(_dobController.text);
+    Timer(const Duration(seconds: 2), (){
+      setState(() => _showSpinner = false);
+      Navigator.pushNamed(context, Dashboard.id);
+    });
   }
 }
