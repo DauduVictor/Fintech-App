@@ -31,6 +31,22 @@ class _RegisterState extends State<Register> {
   /// Variable to hold the bool value of [Password] obscure text in the form field
   bool _obscurePassword = true;
 
+  void _passwordFormatter() {
+    print(_passwordController.text);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordController.addListener(_passwordFormatter);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _passwordController;
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

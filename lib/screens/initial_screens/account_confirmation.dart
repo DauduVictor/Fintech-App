@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_fin/utils/constants.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+import '../dashboard.dart';
 
 class AccountConfirmation extends StatefulWidget {
 
@@ -11,6 +14,10 @@ class AccountConfirmation extends StatefulWidget {
 }
 
 class _AccountConfirmationState extends State<AccountConfirmation> {
+
+  /// variable to hold pin value
+  String _pin = '';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -71,7 +78,54 @@ class _AccountConfirmationState extends State<AccountConfirmation> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       /// Pin field
-                       Container(height: 90, width: 400, color: Colors.white),
+                       Padding(
+                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                         child: PinCodeTextField(
+                           appContext: context,
+                           length: 4,
+                           keyboardType: TextInputType.none,
+                           inputFormatters: [
+                             FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                           ],
+                           textInputAction: TextInputAction.done,
+                           animationType: AnimationType.fade,
+                           obscureText: true,
+                           enableActiveFill: true,
+                           obscuringCharacter: '*',
+                           enablePinAutofill: false,
+                           readOnly: false,
+                           textStyle: const TextStyle(
+                             fontSize: 20,
+                             color: Colors.white,
+                             fontWeight: FontWeight.w500,
+                           ),
+                           validator: (value) {
+                             if (_pin.length != 4) return 'Enter a valid 4 digit pin';
+                             return null;
+                           },
+                           pinTheme: PinTheme(
+                               shape: PinCodeFieldShape.box,
+                               borderWidth: 1,
+                               fieldHeight: 60,
+                               fieldWidth: 60,
+                               activeColor: const Color(0xFF2D2D2F),
+                               inactiveColor: const Color(0xFF2D2D2F),
+                               selectedColor : const Color(0xFF2D2D2F),
+                               activeFillColor: const Color(0xFF14151A),
+                               inactiveFillColor: const Color(0xFF14151A),
+                               selectedFillColor : const Color(0xFF14151A),
+                               borderRadius: const BorderRadius.all(Radius.circular(7))
+                           ),
+                           onChanged: (value) {
+                             if(!mounted)return;
+                             setState(() => _pin = value);
+                           },
+                           onCompleted: (value) {
+                             print(value);
+                             Navigator.pushNamed(context, Dashboard.id);
+                           },
+                         ),
+                       ),
                       const SizedBox(height: 15),
                       /// Forgot pin
                       Row(
@@ -115,12 +169,13 @@ class _AccountConfirmationState extends State<AccountConfirmation> {
                         KeyPadButton(title: 7),
                         KeyPadButton(title: 8),
                         KeyPadButton(title: 9),
-                        KeyPadButton(title: 00),
+                        KeyPadButton(widget: Icon(Icons.backspace_outlined, color: Colors.white, size: 25,),),
                         KeyPadButton(title: 0),
-                        KeyPadButton(title: 00),
+                        KeyPadButton(widget: Icon(Icons.backspace_outlined, color: Colors.white, size: 25,),),
                       ],
                     ),
                   ),
+                  SizedBox(height: constraints.maxHeight * 0.09,),
                 ],
               ),
             );
@@ -134,12 +189,12 @@ class _AccountConfirmationState extends State<AccountConfirmation> {
 class KeyPadButton extends StatelessWidget {
 
   final int? title;
-  final Widget? child;
+  final Widget? widget;
 
   const KeyPadButton({
     Key? key,
     this.title,
-    this.child
+    this.widget
   }) : super(key: key);
 
   @override
@@ -149,7 +204,7 @@ class KeyPadButton extends StatelessWidget {
       style: TextButton.styleFrom(
         padding: const EdgeInsets.all(25.0),
       ),
-      child: Text(
+      child: widget ?? Text(
         title!.toString(),
         style: const TextStyle(
           color: Colors.white,
