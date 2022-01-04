@@ -31,8 +31,21 @@ class _RegisterState extends State<Register> {
   /// Variable to hold the bool value of [Password] obscure text in the form field
   bool _obscurePassword = true;
 
+  /// Variable to hold the bool value of the passowrd textfield checking for uppercase
+  bool _isUpper = false;
+
+  /// Variable to hold the bool value of the passowrd textfield checking for uppercase
+  bool _isLower = false;
+
+  /// Variable to hold the bool value of the passowrd textfield checking for uppercase
+  bool _isNumber = false;
+
+  /// Variable to hold the bool value of the passowrd textfield checking for uppercase
+  bool _isSpecial = false;
+
+
+
   void _passwordFormatter() {
-    print(_passwordController.text);
   }
 
   @override
@@ -122,10 +135,10 @@ class _RegisterState extends State<Register> {
                                   color: Colors.black,
                                   borderRadius: BorderRadius.circular(1.5),
                                 ),
-                                child: const Text(
+                                child: Text(
                                   'Uppercase letter',
                                   style: TextStyle(
-                                    color: Colors.green,
+                                    color: _isUpper == false ? Colors.red : Colors.green,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -136,10 +149,10 @@ class _RegisterState extends State<Register> {
                                   color: Colors.black,
                                   borderRadius: BorderRadius.circular(1.5),
                                 ),
-                                child: const Text(
+                                child: Text(
                                   'Lowercase letter',
                                   style: TextStyle(
-                                    color: Colors.green,
+                                    color: _isLower == false ? Colors.red : Colors.green,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -150,10 +163,10 @@ class _RegisterState extends State<Register> {
                                   color: Colors.black,
                                   borderRadius: BorderRadius.circular(1.5),
                                 ),
-                                child: const Text(
+                                child: Text(
                                   'Number',
                                   style: TextStyle(
-                                    color: Color(0xFF8791A7),
+                                    color: _isNumber == false ? Colors.red : Colors.green,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -164,10 +177,10 @@ class _RegisterState extends State<Register> {
                                   color: Colors.black,
                                   borderRadius: BorderRadius.circular(1.5),
                                 ),
-                                child: const Text(
+                                child: Text(
                                   'Special character',
                                   style: TextStyle(
-                                    color: Colors.red,
+                                    color: _isSpecial == false ? Colors.red : Colors.green,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -294,7 +307,20 @@ class _RegisterState extends State<Register> {
                     keyboardType: TextInputType.visiblePassword,
                     validator: (value) {
                       if (value!.isEmpty) return '';
-                      return null;
+                    },
+                    onChanged: (value) {
+                      if(value.contains(RegExp(r'[A-Z]')) && _isUpper != true) {
+                        setState(() => _isUpper = true);
+                      }
+                      else if(value.contains(RegExp(r'[a-z]')) && _isLower != true) {
+                        setState(() => _isLower = true);
+                      }
+                      else if(value.contains(RegExp(r'[0-9]')) && _isNumber != true) {
+                        setState(() => _isNumber = true);
+                      }
+                      // else if(value.contains(RegExp(r'['\@#$%^&*()_-""><.,']')) && _isSpecial != true) {
+                      //   setState(() => _isSpecial = true);
+                      // }
                     },
                   ),
                 );

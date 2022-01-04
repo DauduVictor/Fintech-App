@@ -6,6 +6,7 @@ import 'package:my_fin/screens/initial_screens/create_account.dart';
 import 'package:my_fin/screens/initial_screens/login.dart';
 import 'package:my_fin/screens/initial_screens/splash_screen.dart';
 import 'package:my_fin/screens/initial_screens/welcome_page_one.dart';
+import 'package:my_fin/screens/transactions/transactions.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,10 +24,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: "CircularStd",
         ),
-      initialRoute: SplashScreen.id,
+      initialRoute: Transaction.id,
       routes: {
         SplashScreen.id: (context) => const SplashScreen(),
         Dashboard.id: (context) => const Dashboard(),
+        Transaction.id: (context) => const Transaction(),
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         Register.id: (context) => const Register(),
         Details.id: (context) => const Details(),

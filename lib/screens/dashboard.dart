@@ -682,7 +682,7 @@ class _DashboardState extends State<Dashboard> {
                         onPressed: () => Navigator.pop(context),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.transparent,
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                         ),
                         child: const Text(
                           'Not Now',
@@ -698,7 +698,7 @@ class _DashboardState extends State<Dashboard> {
                         style: ElevatedButton.styleFrom(
                           primary: const Color(0xFF4D84FF),
                           onSurface: Colors.white,
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                         ),
                         child: const Text(
                           'Turn On',

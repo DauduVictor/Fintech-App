@@ -4,6 +4,12 @@ const Color kBackgroundColor = Color(0xFF001140);
 
 const Color kInitialScreenBackgroundColor = Color(0xFF1F2023);
 
+const kTabBarTextStyle = TextStyle(
+  color: kBackgroundColor,
+  fontSize: 17,
+  fontWeight: FontWeight.w500,
+);
+
 /// Text Style for all TextFields
 const kFormTextStyle = TextStyle(
   fontWeight: FontWeight.w500,
