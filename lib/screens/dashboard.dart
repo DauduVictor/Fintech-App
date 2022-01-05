@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_fin/components/current_tokens_dashboard.dart';
 import 'package:my_fin/components/nav_icon.dart';
 import 'package:my_fin/components/selling_card.dart';
+import 'package:my_fin/screens/transactions/transactions.dart';
 import 'package:my_fin/utils/constants.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
@@ -291,7 +292,9 @@ class _DashboardState extends State<Dashboard> {
                                           ),
                                           /// View all my tokens button
                                           TextButton(
-                                            onPressed: () {  },
+                                            onPressed: () {
+                                              Navigator.pushNamed(context, Transaction.id);
+                                            },
                                             style: ElevatedButton.styleFrom(
                                               primary: const Color(0xFFFFFFFF),
                                               onSurface: const Color(0xFF4D84FF),

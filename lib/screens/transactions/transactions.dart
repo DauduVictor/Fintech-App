@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:my_fin/components/circle_indicator.dart';
 import 'package:my_fin/utils/constants.dart';
 
 class Transaction extends StatefulWidget {
@@ -12,6 +15,21 @@ class Transaction extends StatefulWidget {
 }
 
 class _TransactionState extends State<Transaction> {
+
+  /// Variable to hold the bool value of the spinner
+  bool _showSpinner = true;
+
+  void _navigate() {
+    Timer(const Duration(seconds: 3), () {
+      setState(() => _showSpinner = false);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -136,6 +154,7 @@ class _TransactionState extends State<Transaction> {
 
   ///widget to show the dialog for notifications
   Future<void> _showDetailModalSheet (BoxConstraints constraints) {
+    if(mounted) _navigate();
     return showDialog(
       context: context,
       barrierDismissible: true,
@@ -143,7 +162,7 @@ class _TransactionState extends State<Transaction> {
       builder: (context) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
+          _showSpinner == true ? const Center(child: CircleProgressIndicator()) : Container(
             margin: const EdgeInsets.all(20),
             padding: const EdgeInsets.fromLTRB(16, 30, 16, 21),
             decoration: BoxDecoration(
@@ -154,40 +173,170 @@ class _TransactionState extends State<Transaction> {
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: constraints.maxWidth * 0.2,
-                    height: constraints.maxWidth * 0.23,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/Layer 29.png'),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
+                  ///transaction summary
                   const Text(
-                    'Turn On notifications',
+                    'Transaction Summary',
                     style: TextStyle(
-                      color: Color(0xFF001140),
+                      color: kBackgroundColor,
                       fontWeight: FontWeight.w600,
-                      fontSize: 23,
+                      fontSize: 20,
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 8, 15, 20),
-                    child: Text(
-                      'You will get updates when important events happen',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xFF001140),
-                        fontWeight: FontWeight.normal,
-                        fontSize: 18.5,
+                  const SizedBox(height: 6),
+                  ///ref
+                  const Text(
+                    'Ref: GETXN_TKN_ESCROW_199867854',
+                    overflow: TextOverflow.visible,
+                    style: TextStyle(
+                      color: Color(0xFF8791A7),
+                      fontWeight: FontWeight.normal,
+                      fontSize: 15,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  ///transaction summary
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Expanded(
+                        child: Text(
+                          'Purchased 100 token Fluidcoin Token',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: kBackgroundColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 17,
+                          ),
+                        ),
                       ),
-                    ),
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: constraints.maxHeight * 0.016,
+                        child: Image.asset('assets/images/q0iotj8yxppzxznznijh_qyf7yx 1.png'),
+                      ),
+                    ],
                   ),
-                  /// update button
+                  const SizedBox(height: 7),
+                  const Divider(
+                    thickness: 1.0,
+                    color: Color(0xFFF0F4FD),
+                  ),
+                  const SizedBox(height: 8.5),
+                  ///amount and type
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Amount',
+                            style: TextStyle(
+                              color: Color(0xFF8791A7),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'N100,000',
+                            style: TextStyle(
+                              color: kBackgroundColor,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Type',
+                            style: TextStyle(
+                              color: Color(0xFF8791A7),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'Debit',
+                            style: TextStyle(
+                              color: kBackgroundColor,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8.5),
+                  const Divider(
+                    thickness: 1.0,
+                    color: Color(0xFFF0F4FD),
+                  ),
+                  const SizedBox(height: 8.5),
+                  ///date and status
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Date',
+                            style: TextStyle(
+                              color: Color(0xFF8791A7),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'Jan 12, 2020 10:58 AM',
+                            style: TextStyle(
+                              color: kBackgroundColor,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Status',
+                            style: TextStyle(
+                              color: Color(0xFF8791A7),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'Completed',
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 30),
+                  ///close and share button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
