@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: "CircularStd",
+          highlightColor: Colors.blue.shade50,
         ),
       initialRoute: Transaction.id,
       routes: {
