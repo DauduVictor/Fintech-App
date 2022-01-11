@@ -219,7 +219,7 @@ class _TransactionState extends State<Transaction> {
                                   backgroundColor: Color(0xFFF0F4FD),
                                   radius: 21,
                                   child: Icon(
-                                    Icons.clock,
+                                    IconlyLight.timeCircle,
                                     color: Color(0xFF4F5877),
                                     size: 23,
                                   ),

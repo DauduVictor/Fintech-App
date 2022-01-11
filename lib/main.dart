@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           fontFamily: "CircularStd",
           highlightColor: Colors.blue.shade50,
         ),
-      initialRoute: Transaction.id,
+      initialRoute: SplashScreen.id,
       routes: {
         SplashScreen.id: (context) => const SplashScreen(),
         Dashboard.id: (context) => const Dashboard(),

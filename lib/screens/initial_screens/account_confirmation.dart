@@ -25,6 +25,16 @@ class _AccountConfirmationState extends State<AccountConfirmation> {
   /// variable to hold pin value
   String _pin = '';
 
+  void _pinListener () {
+    print(_pinController.text);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _pinController.addListener(_pinListener);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -111,31 +121,33 @@ class _AccountConfirmationState extends State<AccountConfirmation> {
                              ),
                              controller: _pinController,
                              validator: (value) {
-                               if (_pin != _confirmPin) return 'Incorrect PIN';
+                               if (value!.length > 3 && value != _confirmPin) {
+                                 _pin = '';
+                                 return 'Incorrect PIN';
+                               }
                                return null;
                              },
                              pinTheme: PinTheme(
-                                 shape: PinCodeFieldShape.box,
-                                 borderWidth: 1,
-                                 fieldHeight: 60,
-                                 fieldWidth: 60,
-                                 activeColor: const Color(0xFF2D2D2F),
-                                 inactiveColor: const Color(0xFF2D2D2F),
-                                 selectedColor : const Color(0xFF2D2D2F),
-                                 activeFillColor: const Color(0xFF14151A),
-                                 inactiveFillColor: const Color(0xFF14151A),
-                                 selectedFillColor : const Color(0xFF14151A),
-                                 borderRadius: const BorderRadius.all(Radius.circular(7))
+                               shape: PinCodeFieldShape.box,
+                               borderWidth: 1,
+                               fieldHeight: 60,
+                               fieldWidth: 60,
+                               activeColor: const Color(0xFF2D2D2F),
+                               inactiveColor: const Color(0xFF2D2D2F),
+                               selectedColor : const Color(0xFF2D2D2F),
+                               activeFillColor: const Color(0xFF14151A),
+                               inactiveFillColor: const Color(0xFF14151A),
+                               selectedFillColor : const Color(0xFF14151A),
+                               borderRadius: const BorderRadius.all(Radius.circular(7))
                              ),
                              onChanged: (value) {
                                if(!mounted)return;
                                setState(() => _pin = value);
                              },
                              onCompleted: (value) {
-                               if(_formKey.currentState!.validate()){
+                               if(_formKey.currentState!.validate()) {
                                  Navigator.pushNamed(context, Dashboard.id);
                                }
-
                              },
                            ),
                          ),
@@ -176,42 +188,69 @@ class _AccountConfirmationState extends State<AccountConfirmation> {
                       children: [
                         KeyPadButton(
                           title: 1,
-                          onTap: () { _pinController.text = '1';},
+                          onTap: () {
+                            _pin = _pin +'1';
+                            _pinController.text = _pin;
+                          },
                         ),
                         KeyPadButton(
                           title: 2,
-                          onTap: () { _pinController.text = '2';},
+                          onTap: () {
+                            _pin = _pin +'2';
+                            _pinController.text = _pin;
+                          },
                         ),
                         KeyPadButton(
                           title: 3,
-                          onTap: () { _pinController.text = '3';},
+                          onTap: () {
+                            _pin = _pin +'3';
+                            _pinController.text = _pin;
+                          },
                         ),
                         KeyPadButton(
                           title: 4,
-                          onTap: () { _pinController.text = '4';},
+                          onTap: () {
+                            _pin = _pin +'4';
+                            _pinController.text = _pin;
+                          },
                         ),
                         KeyPadButton(
                           title: 5,
-                          onTap: () { _pinController.text = '5';},
+                          onTap: () {
+                            _pin = _pin +'5';
+                            _pinController.text = _pin;
+                          },
                         ),
                         KeyPadButton(
                           title: 6,
-                          onTap: () { _pinController.text = '6';},
+                          onTap: () {
+                            _pin = _pin +'6';
+                            _pinController.text = _pin;
+                          },
                         ),
                         KeyPadButton(
                           title: 7,
-                          onTap: () { _pinController.text = '7';},
+                          onTap: () {
+                            _pin = _pin +'7';
+                            _pinController.text = _pin;
+                          },
                         ),
                         KeyPadButton(
                           title: 8,
-                          onTap: () { _pinController.text = '8';},
+                          onTap: () {
+                            _pin = _pin +'8';
+                            _pinController.text = _pin;
+                          },
                         ),
                         KeyPadButton(
                           title: 9,
-                          onTap: () { _pinController.text = '9';},
+                          onTap: () {
+                            _pin = _pin +'9';
+                            _pinController.text = _pin;
+                          },
                         ),
                         KeyPadButton(
-                          widget: Icon(
+                          widget: const Icon(
                             Icons.backspace_outlined,
                             color: Colors.white,
                             size: 25,
@@ -220,7 +259,10 @@ class _AccountConfirmationState extends State<AccountConfirmation> {
                         ),
                         KeyPadButton(
                           title: 0,
-                          onTap: () { _pinController.text = '0';},
+                          onTap: () {
+                            _pin = _pin +'0';
+                            _pinController.text = _pin;
+                          },
                         ),
                       ],
                     ),
