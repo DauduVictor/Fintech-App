@@ -1,9 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:my_fin/components/circle_indicator.dart';
 import 'package:my_fin/utils/constants.dart';
+import 'filter_transactions.dart';
 
 class Transaction extends StatefulWidget {
 
@@ -58,6 +58,28 @@ class _TransactionState extends State<Transaction> {
                           ),
                           const Spacer(),
                           GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration: const Duration(milliseconds: 300),
+                                  pageBuilder: (context, animation, secondaryAnimation) {
+                                    return const FilterTransactions();
+                                  },
+                                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                    return SlideTransition(
+                                      position: animation.drive(
+                                        Tween(
+                                          begin: const Offset(0,1),
+                                          end: const Offset(0,0),
+                                        ),
+                                      ),
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
                             child: const Icon(
                               Icons.tune,
                               color: kBackgroundColor,

@@ -6,6 +6,7 @@ import 'package:my_fin/screens/initial_screens/create_account.dart';
 import 'package:my_fin/screens/initial_screens/login.dart';
 import 'package:my_fin/screens/initial_screens/splash_screen.dart';
 import 'package:my_fin/screens/initial_screens/welcome_page_one.dart';
+import 'package:my_fin/screens/transactions/filter_transactions.dart';
 import 'package:my_fin/screens/transactions/transactions.dart';
 
 void main() {
@@ -24,6 +25,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: "CircularStd",
           highlightColor: Colors.blue.shade50,
+          checkboxTheme: CheckboxThemeData(
+            side: BorderSide(width: 1, color: const Color(0xFF979797).withOpacity(0.6)),
+            fillColor:  MaterialStateProperty.all(const Color(0xFF4D84FF)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(3.0),
+            ),
+          ),
         ),
       initialRoute: SplashScreen.id,
       routes: {
@@ -35,6 +43,7 @@ class MyApp extends StatelessWidget {
         Details.id: (context) => const Details(),
         Login.id: (context) => const Login(),
         AccountConfirmation.id: (context) => const AccountConfirmation(),
+        FilterTransactions.id: (context) => const FilterTransactions(),
       }
     );
   }
